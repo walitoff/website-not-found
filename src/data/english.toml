@@ -1,0 +1,10 @@
+#Language name
+language = "English"
+#Language short code
+code = "en"
+#Direction: ltr or rtl
+direction = "ltr"
+title = "The website does not exist."
+info = "The website you are trying to access does not exist or has been removed."
+#Used for sorting languages positions
+weight = 1

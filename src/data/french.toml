@@ -1,0 +1,10 @@
+#Language name
+language = "Français"
+#Language short code
+code = "fr"
+#Direction: ltr or rtl
+direction = "ltr"
+title = "Le site n'existe pas."
+info = "Le site Web auquel vous tentez d'accéder n'existe pas ou a été supprimé."
+#Used for sorting languages positions
+weight = 5

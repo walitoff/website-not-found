@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow,nocache,nosnippet,noarchive,noodp,noydir"/>
+    <link rel="shortcut icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
+    <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/css/uikit.min.css" integrity="sha256-XP1nMbaNkpaqweVWm6VOZuwmiqRKXeI9fvXXU7JqXgc=" crossorigin="anonymous">
+    <style>
+        {{partial "styles.css" | safeCSS}}
+    </style>
+</head>
+<body
+        {{with $.Site.Params.bodyClass}}
+        class="{{. | safeCSS}}"
+        {{end}}
+        {{with $.Site.Params.bodyStyles}}
+        style="{{. | safeCSS}}"
+        {{end}}
+>
+{{$collection:=(sort .Site.Data ".weight" "asc")}}
+<div class="uk-section">
+    <div class="uk-container">
+        {{if .Site.Params.LogoURL}}
+        <div class="uk-text-center" id="logo-container">
+            {{if $.Site.Params.WebsiteURL}}
+            <a href="{{$.Site.Params.WebsiteURL}}">
+            {{end}}
+                <img src="{{$.Site.Params.logoURL}}" alt="Logo" id="logo"
+                     {{with $.Site.Params.logoStyles}}
+                     style="{{. | safeCSS}}"
+                     {{end}}
+                >
+            {{if $.Site.Params.WebsiteURL}}
+            </a>
+            {{end}}
+        </div>
+        {{end}}
+        <ul class="uk-flex-center" uk-tab="connect:#my-content;{{with $.Site.Params.tabsAnimation}}animation: {{.}}{{end}}" id="my-tabs">
+            {{range $collection}}
+            <li lang="{{.code}}"
+                {{if and ".direction" (ne ".direction" "ltr") }}
+            dir="{{.direction}}"
+            {{end}}
+            >
+            <a href="">{{.language}}</a>
+            </li>
+            {{end}}
+        </ul>
+        <ul id="my-content" class="uk-switcher uk-margin">
+            {{range $collection}}
+            <li lang="{{.code}}">
+                {{if or $.Site.Params.Icon $.Site.Params.ImageBase64 }}
+                <div class="uk-text-center">
+                    {{if $.Site.Params.ImageBase64}}
+                        <img src="data:image/jpeg;base64,{{$.Site.Params.ImageBase64}}"
+                             {{with $.Site.Params.ImageClass}}
+                             class="{{. | safeCSS}}"
+                             {{end}}
+                             {{with $.Site.Params.ImageStyles}}
+                             style="{{. | safeCSS}}"
+                             {{end}}
+                             alt="Intro image">
+                    {{else if $.Site.Params.Icon}}
+                    <span uk-icon="icon: {{$.Site.Params.Icon}};{{if $.Site.Params.IconSize}}ratio:{{$.Site.Params.IconSize}}{{end}}"
+                          {{with $.Site.Params.IconClass}}
+                          class="{{. | safeCSS}}"
+                          {{end}}
+                          {{with $.Site.Params.IconStyles}}
+                          style="{{. | safeCSS}}"
+                          {{end}}
+                    >
+                    </span>
+                    {{end}}
+                </div>
+                {{end}}
+                {{ printf "<%s" $.Site.Params.titleTag | safeHTML }}
+                {{with $.Site.Params.titleClass}}
+                    class="{{. | safeCSS}}"
+                {{end}}
+                {{with $.Site.Params.titleStyles}}
+                    style="{{. | safeCSS}}"
+                {{end}}>
+                {{.title}}
+                {{ printf "</%s>" $.Site.Params.titleTag | safeHTML }}
+
+                {{ printf "<%s" $.Site.Params.infoTag | safeHTML }}
+                {{with $.Site.Params.infoClass}}
+                class="{{. | safeCSS}}"
+                {{end}}
+                {{with $.Site.Params.infoStyles}}
+                style="{{. | safeCSS}}"
+                {{end}}>
+                {{.info}}
+                {{ printf "</%s>" $.Site.Params.infoTag | safeHTML }}
+            </li>
+            {{end}}
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit.min.js" integrity="sha256-6APb/Kno+RRKAnlMzJzlJMyXQij6e9mU4Ru5N37HQvk=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit-icons.min.js" integrity="sha256-HFK2G7MjZ9npuAxiUZMetBVH6sU9vOM7USHDj0JaGZ8=" crossorigin="anonymous"></script>
+<script async>
+    {{partial "scripts.js" . | safeJS}}
+</script>
+</body>
+</html>

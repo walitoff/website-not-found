@@ -1,0 +1,10 @@
+#Language name
+language = "Deutsche"
+#Language short code
+code = "de"
+#Direction: ltr or rtl
+direction = "ltr"
+title = "Die Website existiert nicht."
+info = "Die Website, auf die Sie zugreifen möchten, existiert nicht oder wurde entfernt."
+#Used for sorting languages positions
+weight = 5

@@ -1,0 +1,10 @@
+#Language name
+language = "Русский"
+#Language short code
+code = "ru"
+#Direction: ltr or rtl
+direction = "ltr"
+title = "Этот сайт не существует."
+info = "Веб-сайт, к которому вы пытаетесь получить доступ, не существует или был удален."
+#Used for sorting languages positions
+weight = 20

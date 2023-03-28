@@ -1,0 +1,10 @@
+#Language name
+language = "عربي"
+#Language short code
+code = "ar"
+#Direction: ltr or rtl
+direction = "rtl"
+title = "الموقع غير موجود."
+info = "الموقع غير موجود أو تمت إزالته."
+#Used for sorting languages positions
+weight = 1000
