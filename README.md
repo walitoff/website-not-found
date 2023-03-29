@@ -5,6 +5,15 @@ shows if a website does not exist on your hosting.
 It was deleted, suspended, expired or because of invalid DNS configuration.
 It's like a 404 page, but for the whole domain.
 
+[DEMO IS HERE](https://walitoff.github.io/website-not-found/)
+
+## Sample Screenshots
+White theme:
+![cover-fox](https://user-images.githubusercontent.com/16267156/228639743-9014d738-6094-4c04-8104-42767944e810.jpg)
+
+Dark theme:
+![cover-black](https://user-images.githubusercontent.com/16267156/228639882-75735f9c-f422-4f8d-ae2e-5a92aeb2aa23.jpg)
+
 ## Features
 This projects allows to generate a simple page for that with the following
 features.
