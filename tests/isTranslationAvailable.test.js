@@ -1,4 +1,6 @@
-const mod = require('./../src/layouts/partials/scripts')
+"use strict";
+
+const mod = require('./../src/layouts/partials/scripts');
 
 describe('Translations availability test', () => {
     const translations = [
@@ -60,6 +62,7 @@ describe('Translations availability test', () => {
             "strict": false,
         },
     ];
+
     for (const listElement of list) {
         test(`Browser language '${listElement.code}' ` + (listElement.equal ? `matches "${listElement.equal}"` : "not available") + ` in translations ` + JSON.stringify(languageCodes) + ` (` + (listElement.strict ? "" : "not ") + "strict)", () => {
             expect(mod.isTranslationAvailable(listElement.code, listElement.strict)).toEqual(listElement.equal);

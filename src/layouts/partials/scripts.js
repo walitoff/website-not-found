@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Gets supported translations by analyzing HTML page
  * @returns {string[]}
@@ -27,23 +29,28 @@ function getDefaultTranslation() {
  * @returns {boolean} true if equal, false if not
  */
 function compareLocaleCodes(localeName1, localeName2, strictCompare) {
-    if ((typeof localeName1 != 'string') || (typeof localeName2 != 'string'))
+    if ((typeof localeName1 !== 'string') || (typeof localeName2 !== 'string')) {
         return false;
-    if (typeof strictCompare != 'boolean')
+    }
+    if (typeof strictCompare !== 'boolean') {
         strictCompare = false;
-    if (strictCompare)
+    }
+    if (strictCompare) {
         return localeName1.toUpperCase().trim() === localeName2.toUpperCase().trim();
+    }
     //Non-strict compare below. We must check the main part of the locale, e.g. for "en-US" it's "en".
     let main1 = localeName1.split('-', 1);
     let main2 = localeName2.split('-', 1);
-    if (typeof main1[0] != 'string')
+    if (typeof main1[0] !== 'string') {
         main1 = localeName1;
-    else
+    } else {
         main1 = main1[0];
-    if (typeof main2[0] != 'string')
+    }
+    if (typeof main2[0] !== 'string') {
         main2 = localeName2;
-    else
+    } else {
         main2 = main2[0];
+    }
     return compareLocaleCodes(main1, main2, true);
 }
 
@@ -65,8 +72,9 @@ function setTranslation(languageId) {
 function isTranslationAvailable(language, isStrict) {
     const translations = getSupportedTranslations();
     for (const supportedLanguage of translations) {
-        if (compareLocaleCodes(language, supportedLanguage, isStrict))
+        if (compareLocaleCodes(language, supportedLanguage, isStrict)) {
             return supportedLanguage;
+        }
     }
     return false;
 }
@@ -80,8 +88,9 @@ function isTranslationAvailable(language, isStrict) {
 function findBestMatchingTranslation(userLanguages, isStrict) {
     for (const userLanguage of userLanguages) {
         const translation = isTranslationAvailable(userLanguage, isStrict);
-        if (translation)
+        if (translation) {
             return translation;
+        }
     }
     return false;
 }
@@ -94,19 +103,22 @@ function findBestMatchingTranslation(userLanguages, isStrict) {
 function getBestTranslation(userLanguages) {
     const bestStrictTranslation = findBestMatchingTranslation(userLanguages, true);
     const bestNonStrictTranslation = findBestMatchingTranslation(userLanguages, false);
-    if (!bestStrictTranslation && !bestNonStrictTranslation)
+    if (!bestStrictTranslation && !bestNonStrictTranslation) {
         //No matches, return the default translation
         return getDefaultTranslation();
-    if (!bestStrictTranslation)
+    }
+    if (!bestStrictTranslation) {
         //Return what we've got, no alternatives
         return bestNonStrictTranslation;
+    }
 
     /*
     Check for situation when user has preferred languages "fr", "en-UK" then we must return "fr".
     In case of "en","en-UK" we return "en-UK".
      */
-    if (compareLocaleCodes(bestStrictTranslation, bestNonStrictTranslation, false))
+    if (compareLocaleCodes(bestStrictTranslation, bestNonStrictTranslation, false)) {
         return bestStrictTranslation;
+    }
     return bestNonStrictTranslation;
 }
 
@@ -114,13 +126,15 @@ function getBestTranslation(userLanguages) {
  * @returns {ReadonlyArray<string>|string[]}
  */
 function getUserLanguages() {
-    const languages = window.navigator.languages ?? [];
+    const languages = (typeof window.navigator.languages !== "undefined" && window.navigator.languages !== null) ? window.navigator.languages : [];
     // noinspection JSDeprecatedSymbols
     const language = window.navigator.language || window.navigator.userLanguage;
-    if (languages.length > 0)
+    if (languages.length > 0) {
         return languages;
-    if (language && language.length > 0)
+    }
+    if (language && language.length > 0) {
         return [language];
+    }
     return [];
 }
 
@@ -132,13 +146,14 @@ function start() {
     setTranslation(index);
 }
 
-if (typeof UIkit !== "undefined" && UIkit._initialized)
+if (typeof UIkit !== "undefined" && UIkit._initialized) {
     start();
-else
+} else {
     document.addEventListener('uikit:init', () => {
         //UIKit is ready, we can work
         start();
     });
+}
 
 if (typeof exports !== "undefined") {
     module.exports = {
@@ -149,5 +164,5 @@ if (typeof exports !== "undefined") {
         getUserLanguages,
         findBestMatchingTranslation,
         getBestTranslation,
-    }
+    };
 }

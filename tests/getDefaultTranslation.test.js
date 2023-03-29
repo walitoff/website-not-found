@@ -1,4 +1,5 @@
-const mod = require('./../src/layouts/partials/scripts')
+"use strict";
+const mod = require('./../src/layouts/partials/scripts');
 
 describe('Get default translation test', () => {
     test("Language in HTML must equal to 'en'", () => {

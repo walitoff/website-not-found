@@ -1,4 +1,5 @@
-const mod = require('./../src/layouts/partials/scripts')
+"use strict";
+const mod = require('./../src/layouts/partials/scripts');
 
 
 describe('Get user languages test', () => {
@@ -33,10 +34,12 @@ describe('Get user languages test', () => {
     ];
     for (const languagesCollectionElement of languagesCollection) {
         test("Testing navigator.languages in browser equal to " + JSON.stringify(languagesCollectionElement), () => {
-            if (languagesCollectionElement.length > 0)
+            if (languagesCollectionElement.length > 0) {
                 global.navigatorLanguage.mockReturnValue(languagesCollectionElement[0]);
-            else
+            }
+            else {
                 global.navigatorLanguage.mockReturnValue("");
+            }
             global.navigatorLanguages.mockReturnValue(languagesCollectionElement);
             expect(mod.getUserLanguages()).toEqual(languagesCollectionElement);
         });
@@ -47,7 +50,7 @@ describe('Get user languages test', () => {
         "fr",
         "ru-RU",
         "",
-    ]
+    ];
     for (const languagesElement of languagesList) {
         const languages = (languagesElement.length > 0) ? [languagesElement] : [];
         test(`Testing navigator.language in browser equal to "${languagesElement}"`, () => {

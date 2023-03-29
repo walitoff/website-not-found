@@ -1,4 +1,6 @@
-const mod = require('./../src/layouts/partials/scripts')
+"use strict";
+
+const mod = require('./../src/layouts/partials/scripts');
 
 describe('Compare locales test', () => {
     const list = [
@@ -86,7 +88,7 @@ describe('Compare locales test', () => {
             strict: true,
             result: false
         },
-    ]
+    ];
     for (const listElement of list) {
         test(`"${listElement.a}" is ` + (listElement.result ? '' : "not ") +
             `equal to "${listElement.b}" (` + (listElement.strict ? "" : "not ") + "strict)", () => {
