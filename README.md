@@ -1,5 +1,6 @@
+[![ESLint](https://github.com/walitoff/website-not-found/actions/workflows/eslint.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/eslint.yml) [![CodeQL](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql) [![Codacy Security Scan](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml) [![Node.js CI](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml) [![Deploy Hugo site to Pages](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml)
+
 # 404 Page for Missing Website (Domain)
-## About
 If you offer hosting service then you need to have some page that
 shows if a website does not exist on your hosting.
 It was deleted, suspended, expired or because of invalid DNS configuration.
