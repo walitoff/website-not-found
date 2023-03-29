@@ -115,6 +115,7 @@ function getBestTranslation(userLanguages) {
  */
 function getUserLanguages() {
     const languages = window.navigator.languages ?? [];
+    // noinspection JSDeprecatedSymbols
     const language = window.navigator.language || window.navigator.userLanguage;
     if (languages.length > 0)
         return languages;

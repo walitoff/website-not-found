@@ -22,7 +22,7 @@ describe('Get user languages test', () => {
 
     test("Testing mocking navigator.language empty", () => {
         global.navigatorLanguage.mockReturnValue("");
-        expect(window.navigator.language).toEqual("");
+        expect(window.navigator.language).toBe("");
     });
 
     const languagesCollection = [
