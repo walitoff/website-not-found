@@ -38,6 +38,6 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         artifacts-branch: artifacts
         artifacts: |
-          src/public/index.html
-          screenshot.jpg
+          /src/public/index.html
+          /screenshot.jpg
             
