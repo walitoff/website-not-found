@@ -23,6 +23,7 @@
     "markdown": "remark . --frail",
     "markdown:fix": "remark . --frail --output",
     "jest": "jest",
+    "coverage": "jest --coverage",
     "screenshot": "node-html-to-image-cli src/public/index.html screenshot.jpg",
     "stylelint": "stylelint -f verbose \"src/**/*.css\"",
     "stylelint:fix": "stylelint \"src/**/*.css\" --fix",
