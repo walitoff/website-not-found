@@ -42,8 +42,7 @@ jobs:
         show-annotations: "warning" # Possible options warning|error
     - name: Make screenshot
       if: ${{ github.event_name == 'pull_request' }}
-    - run: npm ci
-    - run: npm run screenshot
+      run: npm run screenshot
     - name: Upload files
       if: ${{ github.event_name == 'pull_request' }}
       uses: gavv/pull-request-artifacts@v1.0.0
