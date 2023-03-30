@@ -1,4 +1,21 @@
 {
+  "name": "website-not-found-page-generator",
+  "title": "404 Page for Missing Website (Domain)",
+  "description": "Generates a \"not found domain\" compact responsive page for hosting providers when a domain or website is suspended, deleted or unavailable.",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walitoff/website-not-found.git"
+  },
+  "author": "Ramil Valitov (https://github.com/rvalitov)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/walitoff/website-not-found/issues"
+  },
+  "homepage": "https://github.com/walitoff/website-not-found",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
