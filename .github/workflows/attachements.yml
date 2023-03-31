@@ -10,6 +10,9 @@ defaults:
     shell: bash
 
 jobs:
+  permissions:
+    issues: read|write
+
   # Build job
   build:
     runs-on: ubuntu-latest

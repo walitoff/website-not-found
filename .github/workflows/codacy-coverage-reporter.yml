@@ -7,7 +7,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    
+
 # Default to bash
 defaults:
   run:
@@ -36,7 +36,7 @@ jobs:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           # or
           # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: coverage/lcov.info
+          coverage-reports: ./coverage/lcov.info
           # or a comma-separated list for multiple reports
           # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>
 
