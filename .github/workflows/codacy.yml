@@ -43,6 +43,7 @@ jobs:
         uses: codacy/codacy-analysis-cli-action@master
         with:
           verbose: true
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           output: results.sarif
           format: sarif
           # Adjust severity of non-security issues
@@ -60,7 +61,7 @@ jobs:
   codacy-analysis-cli:
     name: Codacy Analysis CLI
     runs-on: ubuntu-latest
-    if: github.event == 'push'
+    if: github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@main
