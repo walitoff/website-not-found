@@ -13,7 +13,7 @@ jobs:
   # Build job
   build:
     permissions:
-      contents: write
+      #Required to post comment
       pull-requests: write
     runs-on: ubuntu-latest
     env:
@@ -48,4 +48,4 @@ jobs:
           commit: ${{ github.event.pull_request.head.sha }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           artifacts-branch: artifacts
-          artifacts: src/public/index.html screenshot.jpg
+          artifacts: src/public/index.html 
