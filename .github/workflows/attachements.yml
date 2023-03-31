@@ -13,7 +13,7 @@ jobs:
   # Build job
   build:
     permissions:
-      pull-requests: write
+      contents: write
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
