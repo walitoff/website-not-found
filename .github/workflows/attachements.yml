@@ -44,6 +44,8 @@ jobs:
             --minify
       - name: Make screenshot
         run: npm run screenshot
+      - name: Validate screenshot
+        run: npm run screenshot:test
       - name: Upload files
         uses: gavv/pull-request-artifacts@v1.0.0
         with:
