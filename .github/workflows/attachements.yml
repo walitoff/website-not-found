@@ -10,11 +10,10 @@ defaults:
     shell: bash
 
 jobs:
-  permissions:
-    issues: read|write
-
   # Build job
   build:
+    permissions:
+      issues: read|write
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
