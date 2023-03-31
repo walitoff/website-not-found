@@ -54,4 +54,4 @@ jobs:
           artifacts-branch: artifacts
           artifacts: |
             src/public/index.html
-            screenshot.jpg
+            screenshot.png

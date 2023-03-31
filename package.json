@@ -24,8 +24,8 @@
     "markdown:fix": "remark . --frail --output",
     "jest": "jest",
     "coverage": "jest --coverage",
-    "screenshot": "node-html-to-image-cli src/public/index.html screenshot.jpg",
-    "screenshot:test": "cross-env-shell image-validation $INIT_CWD/screenshot.jpg",
+    "screenshot": "node-html-to-image-cli src/public/index.html screenshot.png",
+    "screenshot:test": "cross-env-shell image-validation $INIT_CWD/screenshot.png",
     "stylelint": "stylelint -f verbose \"src/**/*.css\"",
     "stylelint:fix": "stylelint \"src/**/*.css\" --fix",
     "test": "npm run lint && npm run jshint && npm run jest && npm run stylelint && npm run markdown"
