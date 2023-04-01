@@ -55,3 +55,4 @@ The project is made with Hugo for website generation, UIkit for UI, Jest for tes
 
 All contributions are welcome.
 If you have something to add or share, please open an issue or a PR.
+Code contribution guide is [here](.github/CONTRIBUTING.md).
