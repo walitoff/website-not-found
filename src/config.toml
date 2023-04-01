@@ -6,6 +6,8 @@ disableSitemap = true
 disableKinds = ["page", "section", "taxonomy", "term", "RSS", "sitemap"]
 enableRobotsTXT = false
 [params]
+    #Page title used as a tab title in browser. It's static and does not change if user changes language.
+    title="404"
     #Required. Your favicon hosted externally, URL shorteners can be useful
     favicon="https://www.walitoff.com/favicon.ico"
     #Optional, leave blank or comment to disable. If image is used then icon is ignored. Put here image in base64
