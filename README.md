@@ -1,5 +1,5 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cca1e0cef28a470cbbc1d3c0c877ca89)](https://app.codacy.com/gh/walitoff/website-not-found?utm_source=github.com&utm_medium=referral&utm_content=walitoff/website-not-found&utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/823936c92937484e91f3576cb410fd1e)](https://app.codacy.com/gh/walitoff/website-not-found/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cca1e0cef28a470cbbc1d3c0c877ca89)](https://app.codacy.com/gh/walitoff/website-not-found?utm_source=github.com\&utm_medium=referral\&utm_content=walitoff/website-not-found\&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/823936c92937484e91f3576cb410fd1e)](https://app.codacy.com/gh/walitoff/website-not-found/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
 [![ESLint](https://github.com/walitoff/website-not-found/actions/workflows/eslint.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/eslint.yml)
 [![CodeQL](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql)
 [![Codacy Security Scan](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml)
