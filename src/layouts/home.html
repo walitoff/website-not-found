@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+{{$collection:=(sort .Site.Data ".weight" "asc")}}
+{{$default:=index ($collection) 0}}
+<html lang="{{$default.code}}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +9,7 @@
     <link rel="shortcut icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/css/uikit.min.css" integrity="sha256-XP1nMbaNkpaqweVWm6VOZuwmiqRKXeI9fvXXU7JqXgc=" crossorigin="anonymous">
+    <title>{{.Site.Params.Title}}</title>
     <style>
         {{partial "styles.css" | safeCSS}}
     </style>
@@ -19,7 +22,6 @@
         style="{{. | safeCSS}}"
         {{end}}
 >
-{{$collection:=(sort .Site.Data ".weight" "asc")}}
 <div class="uk-section">
     <div class="uk-container">
         {{if .Site.Params.LogoURL}}
@@ -27,7 +29,7 @@
             {{if $.Site.Params.WebsiteURL}}
             <a href="{{$.Site.Params.WebsiteURL}}">
             {{end}}
-                <img src="{{$.Site.Params.logoURL}}" alt="Logo" id="logo"
+                <img src="{{$.Site.Params.logoURL}}" alt="Logo" id="logo" lang="en"
                      {{with $.Site.Params.logoStyles}}
                      style="{{. | safeCSS}}"
                      {{end}}
@@ -44,7 +46,7 @@
             dir="{{.direction}}"
             {{end}}
             >
-            <a href="">{{.language}}</a>
+            <a href="" lang="{{.code}}">{{.language}}</a>
             </li>
             {{end}}
         </ul>
@@ -101,7 +103,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit.min.js" integrity="sha256-6APb/Kno+RRKAnlMzJzlJMyXQij6e9mU4Ru5N37HQvk=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit-icons.min.js" integrity="sha256-HFK2G7MjZ9npuAxiUZMetBVH6sU9vOM7USHDj0JaGZ8=" crossorigin="anonymous"></script>
-<script async>
+<script>
     {{partial "scripts.js" . | safeJS}}
 </script>
 </body>
