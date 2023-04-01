@@ -5,7 +5,7 @@
 [![Codacy Security Scan](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml)
 [![Node.js CI](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml)
 [![Deploy Hugo site to Pages](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml)
-![GitHub](https://img.shields.io/github/license/walitoff/website-not-found?color=yellow)
+![GitHub](https://img.shields.io/github/license/walitoff/website-not-found?color=blue)
 
 # 404 Page for Missing Website (Domain)
 
