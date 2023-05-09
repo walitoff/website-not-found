@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "jshint": "jshint",
+    "jshint": "jshint .",
     "markdown": "remark . --frail",
     "markdown:fix": "remark . --frail --output",
     "jest": "jest",
