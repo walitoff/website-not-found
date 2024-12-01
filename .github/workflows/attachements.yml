@@ -28,7 +28,7 @@ jobs:
       - name: Install Dart Sass Embedded
         run: sudo snap install dart-sass-embedded
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Install Node.js dependencies
@@ -42,12 +42,14 @@ jobs:
         run: |
           hugo \
             --minify
+      - run: sleep 15
       - name: Make screenshot
         run: npm run screenshot
+      - run: sleep 10
       - name: Validate screenshot
         run: npm run screenshot:test
       - name: Upload files
-        uses: gavv/pull-request-artifacts@v1.0.0
+        uses: gavv/pull-request-artifacts@v2
         with:
           commit: ${{ github.event.pull_request.head.sha }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
