@@ -29,13 +29,13 @@ Dark theme:
 This projects allows to generate a simple page for that with the following
 features.
 
-*   single page only, just use resulting `index.html`.
-    All styles and JS are integrated in page.
-*   multilingual support with automatic preferred user language detection.
-    Can correctly handle cases when user has complex set of preferred
-    languages with different locales such as "en-GB", "en-US", etc.
-*   responsive design
-*   tests cover all major JS code
+* single page only, just use resulting `index.html`.
+  All styles and JS are integrated in page.
+* multilingual support with automatic preferred user language detection.
+  Can correctly handle cases when user has complex set of preferred
+  languages with different locales such as "en-GB", "en-US", etc.
+* responsive design
+* tests cover all major JS code
 
 ## Technical details
 
@@ -43,13 +43,13 @@ The project is made with Hugo for website generation, UIkit for UI, Jest for tes
 
 ## How to compile
 
-1.  Configure the website options in `/src/config.toml`.
-2.  Adjust texts to your needs or add translations in `/src/data/`.
-    To order the languages use the `weight` parameter.
-3.  Optionally add your own CSS in `/src/layours/partials/styles.css`
-4.  Optionally run tests with Jest if you modify the JS code: `npm test`
-5.  Build the page with Hugo, run `hugo --minify` in `/src/` directory.
-    The generated page will be in `/src/public/index.html`.
+1. Configure the website options in `/src/config.toml`.
+2. Adjust texts to your needs or add translations in `/src/data/`.
+   To order the languages use the `weight` parameter.
+3. Optionally add your own CSS in `/src/layours/partials/styles.css`
+4. Optionally run tests with Jest if you modify the JS code: `npm test`
+5. Build the page with Hugo, run `hugo --minify` in `/src/` directory.
+   The generated page will be in `/src/public/index.html`.
 
 ## Contributions
 

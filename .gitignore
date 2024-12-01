@@ -11,6 +11,7 @@ Thumbs.db
 #bak files
 ~*
 *.bak
+*~
 
 #temp files
 *.tmp

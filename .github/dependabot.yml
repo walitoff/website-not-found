@@ -10,5 +10,5 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      # No need to update the UIKit I guess
+      # No need to update the UIKit, I guess
       - dependency-name: "uikit"
