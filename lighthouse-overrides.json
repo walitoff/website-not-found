@@ -6,6 +6,8 @@
         "server-response-time",
         "network-server-latency",
         "seo/canonical",
+        "seo/is-crawlable",
+        "seo/meta-description",
         "valid-source-maps",
         "unsized-images",
         "offline-start-url",
