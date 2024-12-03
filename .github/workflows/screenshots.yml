@@ -1,0 +1,70 @@
+# Makes screenshots of the project and publishes them as comment
+name: Screenshots
+
+on:
+  # Runs on pushes targeting the default branch
+  pull_request:
+    branches: ["main"]
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Check on PR
+  web:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.108.0
+    permissions:
+      # Required to upload/save artifact, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      contents: write
+      # Required to post comment, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      pull-requests: write
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass Embedded
+        run: sudo snap install dart-sass-embedded
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Build with Hugo
+        working-directory: ./src
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --minify
+      - name: Make screenshots
+        run: npm run screenshot
+      - name: Upload files
+        uses: gavv/pull-request-artifacts@v2
+        with:
+          commit: ${{ github.event.pull_request.head.sha }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts-branch: artifacts
+          artifacts: |
+            src/public/index.html
+            360x800.jpg
+            390x844.jpg
+            414x896.jpg
+            640x360.jpg
+            780x360.jpg
+            960x540.jpg
+            1200x800.jpg
+            1024x768.jpg
+            1280x720.jpg
+            1366x768.jpg
+            1600x900.jpg
+            1920x1080.jpg

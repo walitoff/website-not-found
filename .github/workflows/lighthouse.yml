@@ -1,5 +1,5 @@
-# Sample workflow for building and deploying a Hugo site to GitHub Pages
-name: Web
+# Performs Lighthouse checks
+name: Lighthouse
 
 on:
   # Runs on pushes targeting the default branch
@@ -17,13 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
-    permissions:
-      # Required to upload/save artifact, otherwise you'll get
-      # "Error: Resource not accessible by integration"
-      contents: write
-      # Required to post comment, otherwise you'll get
-      # "Error: Resource not accessible by integration"
-      pull-requests: write
     steps:
       - name: Install Hugo CLI
         run: |
@@ -46,8 +39,6 @@ jobs:
         run: |
           hugo \
             --minify
-      - name: Make screenshots
-        run: npm run screenshot
       - name: Run Hugo Server
         working-directory: ./src
         env:
@@ -66,7 +57,8 @@ jobs:
         with:
           device: 'desktop'
           locale: 'en'
-          prCommentEnabled: false
+          tag: "desktop"
+          prCommentEnabled: true
           prCommentSaveOld: true
           gitAuthor: ${{ github.actor }}
           gitBranch: ${{ github.ref }}
@@ -77,14 +69,14 @@ jobs:
           overridesJsonFile: ./lighthouse-overrides.json
           sha: ${{ github.sha }}
           urls: 'http://localhost:1313/'
-      - run: find ${{ github.workspace }}/tmp/desktop -maxdepth 1 -name "*.html" -type f -print0 | head -1 | xargs -0 -I {} cp {} ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html
       - name: Lighthouse Mobile
         uses: foo-software/lighthouse-check-action@v12.0.1
         id: lighthouseMobile
         with:
           device: 'mobile'
           locale: 'en'
-          prCommentEnabled: false
+          tag: "mobile"
+          prCommentEnabled: true
           prCommentSaveOld: true
           gitAuthor: ${{ github.actor }}
           gitBranch: ${{ github.ref }}
@@ -95,35 +87,26 @@ jobs:
           overridesJsonFile: ./lighthouse-overrides.json
           sha: ${{ github.sha }}
           urls: 'http://localhost:1313/'
-      - run: find ${{ github.workspace }}/tmp/mobile -maxdepth 1 -name "*.html" -type f -print0 | head -1 | xargs -0 -I {} cp {} ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html
-      - name: Make Lighthouse Desktop Screenshot
-        run: npx pageres ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html 800x800 --overwrite --crop --format=jpg --filename="desktop"
-      - name: Make Lighthouse Mobile Screenshot
-        run: npx pageres ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html 800x800 --overwrite --crop --format=jpg --filename="mobile"
-      - name: Upload files
-        uses: gavv/pull-request-artifacts@v2
+      - name: Upload mobile report
+        id: lighthouse-mobile-report
+        uses: actions/upload-artifact@master
         with:
-          commit: ${{ github.event.pull_request.head.sha }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts-branch: artifacts
-          artifacts: |
-            src/public/index.html
-            ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html
-            ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html
-            mobile.jpg
-            desktop.jpg
-            360x800.jpg
-            390x844.jpg
-            414x896.jpg
-            640x360.jpg
-            780x360.jpg
-            960x540.jpg
-            1200x800.jpg
-            1024x768.jpg
-            1280x720.jpg
-            1366x768.jpg
-            1600x900.jpg
-            1920x1080.jpg
+          name: Lighthouse mobile report upload
+          path: ${{ github.workspace }}/tmp/mobile
+      - name: Upload desktop report
+        id: lighthouse-desktop-report
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse desktop report upload
+          path: ${{ github.workspace }}/tmp/desktop
+      - name: Publish the reports
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Lighthouse Reports
+            - [Mobile](${{ steps.lighthouse-mobile-report.outputs.artifact-url }})
+            - [Desktop](${{ steps.lighthouse-desktop-report.outputs.artifact-url }})
       - name: Verify Lighthouse Desktop Results
         uses: foo-software/lighthouse-check-status-action@v3.0.1
         with:
