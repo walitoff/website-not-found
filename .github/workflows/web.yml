@@ -1,0 +1,141 @@
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Web
+
+on:
+  # Runs on pushes targeting the default branch
+  pull_request:
+    branches: ["main"]
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # Check on PR
+  lighthouse-check:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.108.0
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass Embedded
+        run: sudo snap install dart-sass-embedded
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Build with Hugo
+        working-directory: ./src
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --minify
+      - name: Make screenshots
+        run: npm run screenshot
+      - name: Run Hugo Server
+        working-directory: ./src
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        # Run server in background
+        run: hugo server &
+        # Wait till the server warms up
+      - run: sleep 15
+      - run: mkdir -p ${{ github.workspace }}/tmp/desktop
+      - run: mkdir -p ${{ github.workspace }}/tmp/mobile
+      - name: Lighthouse Desktop
+        uses: foo-software/lighthouse-check-action@v12.0.1
+        id: lighthouseDesktop
+        with:
+          device: 'desktop'
+          locale: 'en'
+          prCommentEnabled: false
+          prCommentSaveOld: true
+          gitAuthor: ${{ github.actor }}
+          gitBranch: ${{ github.ref }}
+          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          outputDirectory: ${{ github.workspace }}/tmp/desktop
+          # see https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md
+          # and https://github.com/GoogleChrome/lighthouse/blob/main/core/config/default-config.js
+          overridesJsonFile: ./lighthouse-overrides.json
+          sha: ${{ github.sha }}
+          urls: 'http://localhost:1313/'
+      - run: find ${{ github.workspace }}/tmp/desktop -maxdepth 1 -name "*.html" -type f -print0 | head -1 | xargs -0 -I {} cp {} ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html
+      - name: Lighthouse Mobile
+        uses: foo-software/lighthouse-check-action@v12.0.1
+        id: lighthouseMobile
+        with:
+          device: 'mobile'
+          locale: 'en'
+          prCommentEnabled: false
+          prCommentSaveOld: true
+          gitAuthor: ${{ github.actor }}
+          gitBranch: ${{ github.ref }}
+          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          outputDirectory: ${{ github.workspace }}/tmp/mobile
+          # see https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md
+          # and https://github.com/GoogleChrome/lighthouse/blob/main/core/config/default-config.js
+          overridesJsonFile: ./lighthouse-overrides.json
+          sha: ${{ github.sha }}
+          urls: 'http://localhost:1313/'
+      - run: find ${{ github.workspace }}/tmp/mobile -maxdepth 1 -name "*.html" -type f -print0 | head -1 | xargs -0 -I {} cp {} ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html
+      - name: Make Lighthouse Desktop Screenshot
+        run: pageres ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html 800x800 --overwrite --format=jpg --filename="desktop"
+      - name: Make Lighthouse Mobile Screenshot
+        run: pageres ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html 800x800 --overwrite --format=jpg --filename="mobile"
+      - name: Upload files
+        uses: gavv/pull-request-artifacts@v2
+        with:
+          commit: ${{ github.event.pull_request.head.sha }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts-branch: artifacts
+          artifacts: |
+            src/public/index.html
+            /tmp/desktop/lighthouse-desktop.html
+            /tmp/mobile/lighthouse-mobile.html
+            mobile.jpg
+            desktop.jpg
+            360x800.jpg
+            390x844.jpg
+            414x896.jpg
+            640x360.jpg
+            780x360.jpg
+            960x540.jpg
+            1200x800.jpg
+            1024x768.jpg
+            1280x720.jpg
+            1366x768.jpg
+            1600x900.jpg
+            1920x1080.jpg
+      - name: Verify Lighthouse Desktop Results
+        uses: foo-software/lighthouse-check-status-action@v3.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseDesktop }}
+          minAccessibilityScore: "80"
+          minBestPracticesScore: "80"
+          minPerformanceScore: "40"
+          minProgressiveWebAppScore: "0"
+          minSeoScore: "70"
+      - name: Verify Lighthouse Mobile Results
+        uses: foo-software/lighthouse-check-status-action@v3.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseMobile }}
+          minAccessibilityScore: "80"
+          minBestPracticesScore: "80"
+          minPerformanceScore: "40"
+          minProgressiveWebAppScore: "0"
+          minSeoScore: "70"

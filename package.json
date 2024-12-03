@@ -27,11 +27,10 @@
     "markdown:fix": "remark . --frail --output",
     "jest": "jest",
     "coverage": "jest --coverage",
-    "screenshot": "node-html-to-image-cli src/public/index.html screenshot.png",
-    "screenshot:test": "cross-env-shell image-validation $INIT_CWD/screenshot.png",
+    "screenshot": "pageres ./src/public/index.html 360x800 390x844 414x896 640x360 780x360 960x540 1200x800 1024x768 1280x720 1366x768 1600x900 1920x1080 --overwrite --format=jpg --filename=\"<%= size %>\"",
     "stylelint": "stylelint -f verbose \"src/**/*.css\"",
     "stylelint:fix": "stylelint \"src/**/*.css\" --fix",
-    "test": "npm run lint && npm run jshint && npm run stylelint && npm run markdown && npm run markdownlint && npm run package && npm run json && npm run jest"
+    "test": "npm run lint && npm run stylelint && npm run markdown && npm run markdownlint && npm run package && npm run json && npm run jest"
   },
   "remarkConfig": {
     "plugins": [
@@ -47,14 +46,13 @@
     "eslint": "^8.57.1",
     "eslint-plugin-jest": "^28.9.0",
     "globals": "^15.12.0",
-    "image-validation": "^1.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jshint": "^2.13.6",
     "markdownlint-cli": "^0.43.0",
-    "node-html-to-image-cli": "^1.1.0",
     "npm-package-json-lint": "^8.0.0",
     "npm-package-json-lint-config-default": "^7.0.1",
+    "pageres": "^8.1.0",
+    "pageres-cli": "^8.0.0",
     "remark-cli": "^12.0.1",
     "remark-lint-list-item-indent": "^4.0.0",
     "remark-preset-lint-consistent": "^6.0.0",
