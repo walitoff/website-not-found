@@ -94,9 +94,9 @@ jobs:
           urls: 'http://localhost:1313/'
       - run: find ${{ github.workspace }}/tmp/mobile -maxdepth 1 -name "*.html" -type f -print0 | head -1 | xargs -0 -I {} cp {} ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html
       - name: Make Lighthouse Desktop Screenshot
-        run: pageres ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html 800x800 --overwrite --format=jpg --filename="desktop"
+        run: npx pageres ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html 800x800 --overwrite --format=jpg --filename="desktop"
       - name: Make Lighthouse Mobile Screenshot
-        run: pageres ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html 800x800 --overwrite --format=jpg --filename="mobile"
+        run: npx pageres ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html 800x800 --overwrite --format=jpg --filename="mobile"
       - name: Upload files
         uses: gavv/pull-request-artifacts@v2
         with:
