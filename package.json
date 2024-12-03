@@ -27,7 +27,7 @@
     "markdown:fix": "remark . --frail --output",
     "jest": "jest",
     "coverage": "jest --coverage",
-    "screenshot": "pageres ./src/public/index.html 360x800 390x844 414x896 640x360 780x360 960x540 1200x800 1024x768 1280x720 1366x768 1600x900 1920x1080 --overwrite --format=jpg --crop --filename=\"<%= size %>\"",
+    "screenshot": "pageres ./src/public/index.html 320x568 568x320 360x780 780x360 375x812 812x375 390x844 844x390 430x932 932x430 768x1024 1024x768 820x1180 1180x820 960x540 1024x1366 1200x800 1280x720 1366x768 1600x900 1920x1080 --overwrite --format=jpg --crop --filename=\"<%= size %>\"",
     "stylelint": "stylelint -f verbose \"src/**/*.css\"",
     "stylelint:fix": "stylelint \"src/**/*.css\" --fix",
     "test": "npm run lint && npm run stylelint && npm run markdown && npm run markdownlint && npm run package && npm run json && npm run jest"

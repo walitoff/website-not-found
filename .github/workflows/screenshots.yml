@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   # Check on PR
-  web:
+  screenshots:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
@@ -48,23 +48,51 @@ jobs:
             --minify
       - name: Make screenshots
         run: npm run screenshot
-      - name: Upload files
-        uses: gavv/pull-request-artifacts@v2
+      - name: Upload files as artifacts
+        id: upload-files-artifacts
+        uses: actions/upload-artifact@master
         with:
-          commit: ${{ github.event.pull_request.head.sha }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts-branch: artifacts
-          artifacts: |
+          name: Screenshots
+          path: |
             src/public/index.html
-            360x800.jpg
-            390x844.jpg
-            414x896.jpg
-            640x360.jpg
+            ./*.jpg
+      - name: Upload files to Imgbb
+        id: upload-files-imgbb
+        uses: McCzarny/upload-image@v1.0.0
+        with:
+          path: |
+            320x568.jpg
+            568x320.jpg
+            360x780.jpg
             780x360.jpg
-            960x540.jpg
-            1200x800.jpg
+            375x812.jpg
+            812x375.jpg
+            390x844.jpg
+            844x390.jpg
+            430x932.jpg
+            932x430.jpg
+            768x1024.jpg
             1024x768.jpg
+            820x1180.jpg
+            1180x820.jpg
             1280x720.jpg
-            1366x768.jpg
-            1600x900.jpg
             1920x1080.jpg
+          uploadMethod: imgbb
+          apiKey: '${{ secrets.IMGBB_API_KEY }}'
+      - name: Publish the images
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # Screenshots
+            ## Smartphones
+            ### iPhone 5
+            |  Portrait Mode  |  Landscape Mode |
+            |----|----|
+            | ![iPhone 5 portrait mode screenshot]({{steps.upload-files-imgbb.outputs.url[0]}}) | ![iPhone 5 portrait mode screenshot]({{steps.upload-files-imgbb.outputs.url[1]}}) |
+
+            ### Tablets
+            ### Desktop
+            
+            
+            [Full ZIP](${{ steps.upload-files-artifacts.outputs.artifact-url }})
