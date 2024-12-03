@@ -61,22 +61,22 @@ jobs:
         uses: McCzarny/upload-image@v1.0.0
         with:
           path: |
-            320x568.jpg
-            568x320.jpg
-            360x780.jpg
-            780x360.jpg
-            375x812.jpg
-            812x375.jpg
-            390x844.jpg
-            844x390.jpg
-            430x932.jpg
-            932x430.jpg
-            768x1024.jpg
-            1024x768.jpg
-            820x1180.jpg
-            1180x820.jpg
-            1280x720.jpg
-            1920x1080.jpg
+            ./320x568.jpg
+            ./568x320.jpg
+            ./360x780.jpg
+            ./780x360.jpg
+            ./375x812.jpg
+            ./812x375.jpg
+            ./390x844.jpg
+            ./844x390.jpg
+            ./430x932.jpg
+            ./932x430.jpg
+            ./768x1024.jpg
+            ./1024x768.jpg
+            ./820x1180.jpg
+            ./1180x820.jpg
+            ./1280x720.jpg
+            ./1920x1080.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
       - name: Publish the images
