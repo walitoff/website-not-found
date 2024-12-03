@@ -1,3 +1,5 @@
+# 404 Page for Missing Website (Domain)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cca1e0cef28a470cbbc1d3c0c877ca89)](https://app.codacy.com/gh/walitoff/website-not-found?utm_source=github.com\&utm_medium=referral\&utm_content=walitoff/website-not-found\&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/823936c92937484e91f3576cb410fd1e)](https://app.codacy.com/gh/walitoff/website-not-found/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
 [![CodeQL](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql)
@@ -6,12 +8,10 @@
 [![Deploy Hugo site to Pages](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml)
 ![GitHub](https://img.shields.io/github/license/walitoff/website-not-found?color=blue)
 
-# 404 Page for Missing Website (Domain)
-
-If you offer hosting service then you need to have some page that
+If you offer a hosting service, then you need to have some page that
 shows if a website does not exist on your hosting.
-It was deleted, suspended, expired or because of invalid DNS configuration.
-It's like a 404 page, but for the whole domain.
+For example, when the website has been deleted, suspended, expired or because of invalid DNS configuration.
+It's like a 404 page but for the whole domain.
 
 [DEMO IS HERE](https://walitoff.github.io/website-not-found/)
 
@@ -25,14 +25,13 @@ Dark theme:
 
 ## Features
 
-This projects allows to generate a simple page for that with the following
-features.
+This project allows generating a simple page with the following features.
 
 * single page only, just use resulting `index.html`.
   All styles and JS are integrated in page.
 * multilingual support with automatic preferred user language detection.
-  Can correctly handle cases when user has complex set of preferred
-  languages with different locales such as "en-GB", "en-US", etc.
+  Can correctly handle cases when a user has a complex set of preferred
+  languages with different locales such as `en-GB`, `en-US`, etc.
 * responsive design
 * tests cover all major JS code
 

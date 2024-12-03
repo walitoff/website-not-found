@@ -1,5 +1,5 @@
-# Sample workflow for building and deploying a Hugo site to GitHub Pages
-name: Lighthouse Check
+# Performs Lighthouse checks
+name: Lighthouse
 
 on:
   # Runs on pushes targeting the default branch
@@ -11,16 +11,19 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   # Check on PR
-  lighthouse-check:
+  lighthouse:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
+    permissions:
+      # Required to upload/save artifact, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      contents: write
+      # Required to post comment, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      pull-requests: write
     steps:
       - name: Install Hugo CLI
         run: |
@@ -53,33 +56,108 @@ jobs:
         run: hugo server &
         # Wait till the server warms up
       - run: sleep 15
-      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
-      - name: Lighthouse
+      - run: mkdir -p ${{ github.workspace }}/tmp/desktop
+      - run: mkdir -p ${{ github.workspace }}/tmp/mobile
+      - name: Lighthouse Desktop
         uses: foo-software/lighthouse-check-action@v12.0.1
-        id: lighthouseCheck
+        id: lighthouseDesktop
         with:
-          device: 'all'
+          device: 'desktop'
           locale: 'en'
-          prCommentEnabled: true
+          tag: "desktop"
+          prCommentEnabled: false
           prCommentSaveOld: true
           gitAuthor: ${{ github.actor }}
           gitBranch: ${{ github.ref }}
           gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
-          outputDirectory: ${{ github.workspace }}/tmp/artifacts
+          outputDirectory: ${{ github.workspace }}/tmp/desktop
           # see https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md
           # and https://github.com/GoogleChrome/lighthouse/blob/main/core/config/default-config.js
           overridesJsonFile: ./lighthouse-overrides.json
           sha: ${{ github.sha }}
           urls: 'http://localhost:1313/'
-      - name: Upload artifacts
+      - name: Lighthouse Mobile
+        uses: foo-software/lighthouse-check-action@v12.0.1
+        id: lighthouseMobile
+        with:
+          device: 'mobile'
+          locale: 'en'
+          tag: "mobile"
+          prCommentEnabled: false
+          prCommentSaveOld: true
+          gitAuthor: ${{ github.actor }}
+          gitBranch: ${{ github.ref }}
+          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          outputDirectory: ${{ github.workspace }}/tmp/mobile
+          # see https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md
+          # and https://github.com/GoogleChrome/lighthouse/blob/main/core/config/default-config.js
+          overridesJsonFile: ./lighthouse-overrides.json
+          sha: ${{ github.sha }}
+          urls: 'http://localhost:1313/'
+      - name: Upload mobile report
+        id: lighthouseMobileReport
         uses: actions/upload-artifact@master
         with:
-          name: Lighthouse reports
-          path: ${{ github.workspace }}/tmp/artifacts
-      - name: Verify Lighthouse Check results
+          name: Lighthouse-mobile-report
+          path: ${{ github.workspace }}/tmp/mobile
+      - name: Upload desktop report
+        id: lighthouseDesktopReport
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse-desktop-report
+          path: ${{ github.workspace }}/tmp/desktop
+      - name: Parse Mobile Scores
+        id: mobileScores
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const fs = require('fs')
+              const jsonString = fs.readFileSync("${{ github.workspace }}/tmp/mobile/results.json")
+              var score = JSON.parse(jsonString)
+              console.log(score[0].scores)
+            } catch(err) {
+              core.error("Error while reading or parsing the JSON")
+              core.setFailed(err)
+            }
+      - name: Parse Desktop Scores
+        id: desktopScores
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const fs = require('fs')
+              const jsonString = fs.readFileSync("${{ github.workspace }}/tmp/desktop/results.json")
+              var score = JSON.parse(jsonString)
+              core.setOutput('scores', score[0].scores)
+            } catch(err) {
+              core.error("Error while reading or parsing the JSON")
+              core.setFailed(err)
+            }
+      - name: Publish the reports
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ### Lighthouse Reports
+            |  Mode  |  Accessibility | Best Practicies | Performance | SEO | Report |
+            |----|----|----|----|----|----|
+            | Mobile | ${{ steps.mobileScores.outputs.scores.accessibility }} | ${{ steps.mobileScores.outputs.scores.bestPractices }} | ${{ steps.mobileScores.outputs.scores.performance }} | ${{ steps.mobileScores.outputs.scores.seo }} | [Mobile.zip](${{ steps.lighthouseMobileReport.outputs.artifact-url }}) |
+            | Desktop | ${{ steps.desktopScores.outputs.scores.accessibility }} | ${{ steps.desktopScores.outputs.scores.bestPractices }} | ${{ steps.desktopScores.outputs.scores.performance }} | ${{ steps.desktopScores.outputs.scores.seo }} | [Desktop.zip](${{ steps.lighthouseDesktopReport.outputs.artifact-url }}) |
+
+      - name: Verify Lighthouse Desktop Results
         uses: foo-software/lighthouse-check-status-action@v3.0.1
         with:
-          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          lighthouseCheckResults: ${{ steps.lighthouseDesktop.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "80"
+          minBestPracticesScore: "80"
+          minPerformanceScore: "40"
+          minProgressiveWebAppScore: "0"
+          minSeoScore: "70"
+      - name: Verify Lighthouse Mobile Results
+        uses: foo-software/lighthouse-check-status-action@v3.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseMobile.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "80"
           minBestPracticesScore: "80"
           minPerformanceScore: "40"
