@@ -127,7 +127,7 @@ jobs:
       - name: Verify Lighthouse Desktop Results
         uses: foo-software/lighthouse-check-status-action@v3.0.1
         with:
-          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseDesktop }}
+          lighthouseCheckResults: ${{ steps.lighthouseDesktop.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "80"
           minBestPracticesScore: "80"
           minPerformanceScore: "40"
@@ -136,7 +136,6 @@ jobs:
       - name: Verify Lighthouse Mobile Results
         uses: foo-software/lighthouse-check-status-action@v3.0.1
         with:
-          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseMobile }}
           lighthouseCheckResults: ${{ steps.lighthouseMobile.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "80"
           minBestPracticesScore: "80"
