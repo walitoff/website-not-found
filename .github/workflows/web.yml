@@ -11,16 +11,19 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   # Check on PR
-  lighthouse-check:
+  web:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
+    permissions:
+      # Required to upload/save artifact, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      contents: write
+      # Required to post comment, otherwise you'll get
+      # "Error: Resource not accessible by integration"
+      pull-requests: write
     steps:
       - name: Install Hugo CLI
         run: |
