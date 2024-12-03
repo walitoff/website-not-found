@@ -98,13 +98,13 @@ jobs:
         id: lighthouse-mobile-report
         uses: actions/upload-artifact@master
         with:
-          name: Lighthouse mobile report upload
+          name: Lighthouse-mobile-report
           path: ${{ github.workspace }}/tmp/mobile
       - name: Upload desktop report
         id: lighthouse-desktop-report
         uses: actions/upload-artifact@master
         with:
-          name: Lighthouse desktop report upload
+          name: Lighthouse-desktop-report
           path: ${{ github.workspace }}/tmp/desktop
       - name: Publish the reports
         uses: peter-evans/create-or-update-comment@v4
