@@ -129,7 +129,7 @@ jobs:
               const fs = require('fs')
               const jsonString = fs.readFileSync("${{ github.workspace }}/tmp/desktop/results.json")
               var score = JSON.parse(jsonString)
-              console.log(score[0].scores)
+              core.setOutput('scores', score[0].scores)
             } catch(err) {
               core.error("Error while reading or parsing the JSON")
               core.setFailed(err)
@@ -141,8 +141,9 @@ jobs:
           body: |
             ### Lighthouse Reports
             |  Mode  |  Accessibility | Best Practicies | Performance | SEO | Report |
-            | Mobile | ${{ steps.mobileScores.outputs.accessibility }} | ${{ steps.mobileScores.outputs.bestPractices }} | ${{ steps.mobileScores.outputs.performance }} | ${{ steps.mobileScores.outputs.seo }} | [Mobile.zip](${{ steps.lighthouseMobileReport.outputs.artifact-url }}) |
-            | Desktop | ${{ steps.desktopScores.outputs.accessibility }} | ${{ steps.desktopScores.outputs.bestPractices }} | ${{ steps.desktopScores.outputs.performance }} | ${{ steps.desktopScores.outputs.seo }} | [Desktop.zip](${{ steps.lighthouseDesktopReport.outputs.artifact-url }}) |
+            |----|----|----|----|----|----|
+            | Mobile | ${{ steps.mobileScores.outputs.scores.accessibility }} | ${{ steps.mobileScores.outputs.scores.bestPractices }} | ${{ steps.mobileScores.outputs.scores.performance }} | ${{ steps.mobileScores.outputs.scores.seo }} | [Mobile.zip](${{ steps.lighthouseMobileReport.outputs.artifact-url }}) |
+            | Desktop | ${{ steps.desktopScores.outputs.scores.accessibility }} | ${{ steps.desktopScores.outputs.scores.bestPractices }} | ${{ steps.desktopScores.outputs.scores.performance }} | ${{ steps.desktopScores.outputs.scores.seo }} | [Desktop.zip](${{ steps.lighthouseDesktopReport.outputs.artifact-url }}) |
 
       - name: Verify Lighthouse Desktop Results
         uses: foo-software/lighthouse-check-status-action@v3.0.1
