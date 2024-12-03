@@ -108,8 +108,8 @@ jobs:
           artifacts-branch: artifacts
           artifacts: |
             src/public/index.html
-            /tmp/desktop/lighthouse-desktop.html
-            /tmp/mobile/lighthouse-mobile.html
+            ${{ github.workspace }}/tmp/desktop/lighthouse-desktop.html
+            ${{ github.workspace }}/tmp/mobile/lighthouse-mobile.html
             mobile.jpg
             desktop.jpg
             360x800.jpg
