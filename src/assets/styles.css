@@ -1,0 +1,18 @@
+h2 {
+    text-transform: uppercase;
+}
+
+.uk-tab > * > a {
+    color: #616161;
+}
+
+.uk-tab > * > a:hover {
+    color: #cc0b24;
+    border-color: #cc0b24;
+}
+
+.uk-tab > .uk-active > a {
+    color: white;
+    border-color: #cc0b24;
+    background: #cc0b24;
+}

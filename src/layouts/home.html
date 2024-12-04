@@ -8,10 +8,15 @@
     <meta name="robots" content="noindex,nofollow,nocache,nosnippet,noarchive,noodp,noydir"/>
     <link rel="shortcut icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/css/uikit.min.css" integrity="sha256-aLupBlvjWcEkt1UqyP8A8UD2DypecuICUbWQgnHgPnA=" crossorigin="anonymous">
     <title>{{.Site.Params.Title}}</title>
+    {{ $uikit_css := resources.Get "uikit.min.css" }}
+    {{ $custom_css := resources.Get "styles.css" }}
+    {{ $css := slice $uikit_css $custom_css | resources.Concat "css/bundle.css" | css.PostCSS }}
+    {{ if hugo.IsProduction }}
+        {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
     <style>
-        {{partial "styles.css" | safeCSS}}
+        {{ $css.Content | safeCSS }}
     </style>
 </head>
 <body
@@ -101,8 +106,10 @@
         </ul>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit.min.js" integrity="sha256-4zNcN4KkR/mpe//kDfUZ3bF/tpXl7UY1krSYT4WQDyk=" crossorigin="anonymous" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit-icons.min.js" integrity="sha256-3BNHifLEvEG/tyd2No8THObTy9k4SEkbmWbuO+Czalk=" crossorigin="anonymous" async defer></script>
+{{ $uikit_js := resources.Get "uikit.min.js" }}
+<script async defer>
+    {{$uikit_js.Content | safeJS }}
+</script>
 <script async defer>
     {{partial "scripts.js" . | safeJS}}
 </script>
