@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex,nofollow,nocache,nosnippet,noarchive,noodp,noydir"/>
     <link rel="shortcut icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/css/uikit.min.css" integrity="sha256-XP1nMbaNkpaqweVWm6VOZuwmiqRKXeI9fvXXU7JqXgc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/css/uikit.min.css" integrity="sha256-aLupBlvjWcEkt1UqyP8A8UD2DypecuICUbWQgnHgPnA=" crossorigin="anonymous">
     <title>{{.Site.Params.Title}}</title>
     <style>
         {{partial "styles.css" | safeCSS}}
@@ -101,9 +101,9 @@
         </ul>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit.min.js" integrity="sha256-6APb/Kno+RRKAnlMzJzlJMyXQij6e9mU4Ru5N37HQvk=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit-icons.min.js" integrity="sha256-HFK2G7MjZ9npuAxiUZMetBVH6sU9vOM7USHDj0JaGZ8=" crossorigin="anonymous"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit.min.js" integrity="sha256-4zNcN4KkR/mpe//kDfUZ3bF/tpXl7UY1krSYT4WQDyk=" crossorigin="anonymous" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit-icons.min.js" integrity="sha256-3BNHifLEvEG/tyd2No8THObTy9k4SEkbmWbuO+Czalk=" crossorigin="anonymous" async defer></script>
+<script async defer>
     {{partial "scripts.js" . | safeJS}}
 </script>
 </body>
