@@ -16,7 +16,7 @@ jobs:
   screenshots:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.108.0
+      HUGO_VERSION: 0.139.3
     permissions:
       # Required to upload/save artifact, otherwise you'll get
       # "Error: Resource not accessible by integration"
