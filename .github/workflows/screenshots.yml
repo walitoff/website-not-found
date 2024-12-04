@@ -4,7 +4,7 @@ name: Screenshots
 on:
   # Runs on pushes targeting the default branch
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 # Default to bash
 defaults:
@@ -80,7 +80,7 @@ jobs:
             1112x834.jpg
             1024x1366.jpg
             1366x1024.jpg
-            1440x900.jpg     
+            1440x900.jpg
             2304x1440.jpg
             1280x800.jpg
             1366x768.jpg
@@ -135,7 +135,7 @@ jobs:
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
             | ![iPad 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[12]}}) | ![iPad 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[13]}}) |
-                        
+            
             #### iPad Pro 10 (834x1112)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
