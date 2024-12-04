@@ -10,7 +10,7 @@
     <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <title>{{.Site.Params.Title}}</title>
     {{ $uikit_css := resources.Get "uikit.min.css" }}
-    {{ $custom_css := resources.Get "styles.css" }}
+    {{ $custom_css := resources.Get "custom.css" }}
     {{ $css := slice $uikit_css $custom_css | resources.Concat "css/bundle.css" | css.PostCSS }}
     {{ if hugo.IsProduction }}
         {{ $css = $css | minify | fingerprint | resources.PostProcess }}
@@ -107,11 +107,10 @@
     </div>
 </div>
 {{ $uikit_js := resources.Get "uikit.min.js" }}
+{{ $custom_js := resources.Get "custom.js" }}
+{{ $js := slice $uikit_js $custom_js | resources.Concat "js/bundle.js" }}
 <script async defer>
-    {{$uikit_js.Content | safeJS }}
-</script>
-<script async defer>
-    {{partial "scripts.js" . | safeJS}}
+    {{$js.Content | safeJS }}
 </script>
 </body>
 </html>

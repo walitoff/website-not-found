@@ -21,8 +21,11 @@ Thumbs.db
 /src/public
 node_modules
 coverage
-screenshot.jpg
-screenshot.png
+
+# Lighthouse reports
+*.report.json
+*.report.html
+
 # Hugo stats
 hugo_stats.json
 
