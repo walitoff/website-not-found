@@ -44,9 +44,9 @@ The project is made with Hugo for website generation, UIkit for UI, Jest for tes
 1. Configure the website options in `/src/config.toml`.
 2. Adjust texts to your needs or add translations in `/src/data/`.
    To order the languages use the `weight` parameter.
-3. Optionally add your own CSS in `/src/layours/partials/styles.css`
+3. Optionally add your own CSS in `/src/assets/custom.css`
 4. Optionally run tests with Jest if you modify the JS code: `npm test`
-5. Build the page with Hugo, run `hugo --minify` in `/src/` directory.
+5. Build the page with Hugo, run `npm run build`.
    The generated page will be in `/src/public/index.html`.
 
 ## Contributions

@@ -19,7 +19,6 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "jshint": "jshint .",
     "json": "jsonlint -q ./*.json",
     "package": "npx npm-package-json-lint .",
     "build": "npx cpy ./node_modules/uikit/dist/css/uikit.min.css ./src/assets --flat && npx cpy ./node_modules/uikit/dist/js/uikit.min.js ./src/assets --flat && cd ./src && hugo --minify --environment production",
