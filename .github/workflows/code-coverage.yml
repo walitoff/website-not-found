@@ -1,6 +1,6 @@
 name: Code Coverage Comparison
 
-on: [pull_request]
+on: [ pull_request ]
 
 # Default to bash
 defaults:
