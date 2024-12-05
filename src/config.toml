@@ -50,3 +50,5 @@ enableRobotsTXT = false
     infoClass="uk-text-center uk-h3"
     #CSS for info
     infoStyles=""
+[build]
+    writeStats = true

@@ -8,10 +8,15 @@
     <meta name="robots" content="noindex,nofollow,nocache,nosnippet,noarchive,noodp,noydir"/>
     <link rel="shortcut icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
     <link rel="icon" href="{{.Site.Params.favicon}}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/css/uikit.min.css" integrity="sha256-XP1nMbaNkpaqweVWm6VOZuwmiqRKXeI9fvXXU7JqXgc=" crossorigin="anonymous">
     <title>{{.Site.Params.Title}}</title>
+    {{ $uikit_css := resources.Get "uikit.min.css" }}
+    {{ $custom_css := resources.Get "custom.css" }}
+    {{ $css := slice $uikit_css $custom_css | resources.Concat "css/bundle.css" | css.PostCSS }}
+    {{ if hugo.IsProduction }}
+        {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
     <style>
-        {{partial "styles.css" | safeCSS}}
+        {{ $css.Content | safeCSS }}
     </style>
 </head>
 <body
@@ -101,10 +106,11 @@
         </ul>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit.min.js" integrity="sha256-6APb/Kno+RRKAnlMzJzlJMyXQij6e9mU4Ru5N37HQvk=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.11/dist/js/uikit-icons.min.js" integrity="sha256-HFK2G7MjZ9npuAxiUZMetBVH6sU9vOM7USHDj0JaGZ8=" crossorigin="anonymous"></script>
-<script>
-    {{partial "scripts.js" . | safeJS}}
+{{ $uikit_js := resources.Get "uikit.min.js" }}
+{{ $custom_js := resources.Get "custom.js" }}
+{{ $js := slice $uikit_js $custom_js | resources.Concat "js/bundle.js" }}
+<script async defer>
+    {{$js.Content | safeJS }}
 </script>
 </body>
 </html>

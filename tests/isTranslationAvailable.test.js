@@ -1,6 +1,6 @@
 "use strict";
 
-const mod = require('./../src/layouts/partials/scripts');
+const mod = require('./../src/assets/custom');
 
 describe('Translations availability test', () => {
     const translations = [
