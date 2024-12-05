@@ -9,9 +9,9 @@ If you want to contribute, please follow this guideline.
 3. Clone your fork to your PC.
 4. Install dependencies, run command: `$ npm ci`
 5. Create a new branch for your contributions
-6. Write your code. Some helping commands (they should run inside `src` directory):
-   * Build page: `$ hugo`. The built page will be `/src/public/index.html`.
-   * Run local Hugo server to monitor your changes in real-time as you write code: `$ hugo server -D`
+6. Write your code. Some helping commands:
+   * Build page: `npm run build`. The built page will be `/src/public/index.html`.
+   * Run local Hugo server to monitor your changes in real-time as you write code: `npm run start-server`
 7. Test your code with command `$ npm test`. It should pass, otherwise fix the errors. Some commands available for
    automatic fix of errors:
    * For ESLint (JS): `$ npm run lint:fix`
