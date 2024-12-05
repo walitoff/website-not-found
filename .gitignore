@@ -25,6 +25,8 @@ coverage
 # Lighthouse reports
 *.report.json
 *.report.html
+desktop.jpg
+mobile.jpg
 
 # Hugo stats
 hugo_stats.json
