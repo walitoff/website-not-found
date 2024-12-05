@@ -1,6 +1,5 @@
 "use strict";
-const mod = require('./../src/layouts/partials/scripts');
-
+const mod = require('./../src/assets/custom');
 
 describe('Get user languages test', () => {
     test("Testing mocking navigator.language equal to \"fr\"", () => {
@@ -36,8 +35,7 @@ describe('Get user languages test', () => {
         test("Testing navigator.languages in browser equal to " + JSON.stringify(languagesCollectionElement), () => {
             if (languagesCollectionElement.length > 0) {
                 global.navigatorLanguage.mockReturnValue(languagesCollectionElement[0]);
-            }
-            else {
+            } else {
                 global.navigatorLanguage.mockReturnValue("");
             }
             global.navigatorLanguages.mockReturnValue(languagesCollectionElement);

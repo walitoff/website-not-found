@@ -1,5 +1,5 @@
 "use strict";
-const mod = require('./../src/layouts/partials/scripts');
+const mod = require('./../src/assets/custom');
 
 describe('Get supported translations test', () => {
     function testIfSupported(translations) {
