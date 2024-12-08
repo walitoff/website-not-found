@@ -120,7 +120,7 @@ jobs:
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
         env:
-          links: ${{ fromJson(steps.upload-files-imgbb.outputs.urls) }}
+          links: ${{ steps.upload-files-imgbb.outputs.urls }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
