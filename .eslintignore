@@ -1,7 +1,0 @@
-*.js
-node_modules/**
-.github/**
-samples/**
-coverage/**
-src/public/**
-!.eslintrc.js
