@@ -117,6 +117,8 @@ jobs:
             desktop.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
+      - run: echo ${{ steps.upload-files-imgbb.outputs.urls }}
+      - run: echo ${{ toJson(steps.upload-files-imgbb.outputs) }}
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
         env:
