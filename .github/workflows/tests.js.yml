@@ -110,7 +110,7 @@ jobs:
             mobile.report.json
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.2.5
+        uses: McCzarny/upload-image@master
         with:
           path: |
             mobile.jpg
@@ -119,13 +119,15 @@ jobs:
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
+        env:
+          links: ${{ fromJson(steps.upload-files-imgbb.outputs.urls) }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ### Lighthouse Report
             |  Mobile  |  Desktop |
             |----|----|
-            | ![Lighthouse Mobile Report Score](${{steps.upload-files-imgbb.outputs.url[0]}}) | ![Lighthouse Desktop Report Score](${{steps.upload-files-imgbb.outputs.url[1]}}) |
+            | ![Lighthouse Mobile Report Score](${{env.links[0]}}) | ![Lighthouse Desktop Report Score](${{env.links[1]}}) |
 
             [Download report ZIP](${{ steps.lighthouseUploadReport.outputs.artifact-url }})
 
@@ -182,7 +184,7 @@ jobs:
             ./*.jpg
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.2.5
+        uses: McCzarny/upload-image@master
         with:
           # Device viewport sizes https://blisk.io/devices
           path: |
@@ -217,7 +219,7 @@ jobs:
       - name: Publish the images
         uses: peter-evans/create-or-update-comment@v4
         env:
-          links: ${{ fromJson(format('[{0}]', steps.upload-files-imgbb.outputs.url)) }}
+          links: ${{ fromJson(steps.upload-files-imgbb.outputs.urls) }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
