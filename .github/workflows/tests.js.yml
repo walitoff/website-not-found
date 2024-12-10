@@ -117,19 +117,17 @@ jobs:
             desktop.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
-      - run: echo ${{ steps.upload-files-imgbb.outputs.urls }}
-      - run: echo ${{ toJson(steps.upload-files-imgbb.outputs) }}
+          # Images will be automatically deleted after 30 days
+          expiration: 86400
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
-        env:
-          links: ${{ fromJson(steps.upload-files-imgbb.outputs.urls) }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ### Lighthouse Report
             |  Mobile  |  Desktop |
             |----|----|
-            | ![Lighthouse Mobile Report Score](${{env.links[0]}}) | ![Lighthouse Desktop Report Score](${{env.links[1]}}) |
+            | ![Lighthouse Mobile Report Score](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[0]}}) | ![Lighthouse Desktop Report Score](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[1]}}) |
 
             [Download report ZIP](${{ steps.lighthouseUploadReport.outputs.artifact-url }})
 
@@ -218,6 +216,8 @@ jobs:
             2048x1152.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
+          # Images will be automatically deleted after 30 days
+          expiration: 86400
       - name: Publish the images
         uses: peter-evans/create-or-update-comment@v4
         env:
