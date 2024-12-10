@@ -220,8 +220,6 @@ jobs:
           expiration: 86400
       - name: Publish the images
         uses: peter-evans/create-or-update-comment@v4
-        env:
-          links: ${{ fromJson(steps.upload-files-imgbb.outputs.urls) }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
@@ -231,27 +229,27 @@ jobs:
             #### iPhone 5 (320x568)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 5 portrait mode screenshot](${{env.links[0]}}) | ![iPhone 5 portrait mode screenshot](${{env.links[1]}}) |
+            | ![iPhone 5 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[0]}}) | ![iPhone 5 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[1]}}) |
 
             #### Honor 20 Pro (360x780)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![Honor 20 Pro portrait mode screenshot](${{env.links[2]}}) | ![Honor 20 Pro portrait mode screenshot](${{env.links[3]}}) |
+            | ![Honor 20 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[2]}}) | ![Honor 20 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[3]}}) |
 
             #### iPhone X (375x812)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone X portrait mode screenshot](${{env.links[4]}}) | ![iPhone X portrait mode screenshot](${{env.links[5]}}) |
+            | ![iPhone X portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[4]}}) | ![iPhone X portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[5]}}) |
 
             #### iPhone 12/13 Pro (390x844)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 12 Pro portrait mode screenshot](${{env.links[6]}}) | ![iPhone 12 Pro portrait mode screenshot](${{env.links[7]}}) |
+            | ![iPhone 12 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[6]}}) | ![iPhone 12 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[7]}}) |
 
             #### iPhone 14/15 Pro Max (430x932)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 14 Pro Max portrait mode screenshot](${{env.links[8]}}) | ![iPhone 14 Pro Max portrait mode screenshot](${{env.links[9]}}) |
+            | ![iPhone 14 Pro Max portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[8]}}) | ![iPhone 14 Pro Max portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[9]}}) |
             </details>
 
             <details>
@@ -259,33 +257,33 @@ jobs:
             #### iPad Mini 4 / Pro 9 (768x1024)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Mini portrait mode screenshot](${{env.links[10]}}) | ![iPad Mini portrait mode screenshot](${{env.links[11]}}) |
+            | ![iPad Mini portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[10]}}) | ![iPad Mini portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[11]}}) |
 
             #### iPad 10 (810x1080)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad 10 portrait mode screenshot](${{env.links[12]}}) | ![iPad 10 portrait mode screenshot](${{env.links[13]}}) |
+            | ![iPad 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[12]}}) | ![iPad 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[13]}}) |
 
             #### iPad Pro 10 (834x1112)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Pro 10 portrait mode screenshot](${{env.links[14]}}) | ![iPad Pro 10 portrait mode screenshot](${{env.links[15]}}) |
+            | ![iPad Pro 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[14]}}) | ![iPad Pro 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[15]}}) |
 
             #### iPad Pro 12 (1024x1366)
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Pro 12 portrait mode screenshot](${{env.links[16]}}) | ![iPad Pro 12 portrait mode screenshot](${{env.links[17]}}) |
+            | ![iPad Pro 12 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[16]}}) | ![iPad Pro 12 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[17]}}) |
             </details>
 
             <details>
             <summary>Notebooks</summary>
             |  MacBook Air 13.3"/15.4" (1440x900) |  MacBook 12" (2304x1440) |
             |----|----|
-            | ![MacBook Air 13.3" screenshot](${{env.links[18]}}) | ![MacBook 12" screenshot](${{env.links[19]}}) |
+            | ![MacBook Air 13.3" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[18]}}) | ![MacBook 12" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[19]}}) |
 
             |  Laptop-S 1280x800 |  Laptop-M 1366x768 |
             |----|----|
-            | ![Laptop-S 1280x800 screenshot](${{env.links[20]}}) | ![Laptop-M 1366x768 screenshot](${{env.links[21]}}) |
+            | ![Laptop-S 1280x800 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[20]}}) | ![Laptop-M 1366x768 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[21]}}) |
             </details>
 
             <details>
@@ -293,11 +291,11 @@ jobs:
 
             |  2560x1440 |  1920x1080 |
             |----|----|
-            | ![2560x1440 screenshot](${{env.links[22]}}) | ![1920x1080 screenshot](${{env.links[23]}}) |
+            | ![2560x1440 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[22]}}) | ![1920x1080 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[23]}}) |
 
             |  iMac Pro Retina 5K 27" (3200x1800) |  iMac Retina 4K 21.5" (2048x1152) |
             |----|----|
-            | ![iMac Pro Retina 5K 27" screenshot](${{env.links[24]}}) | ![iMac Retina 4K 21.5" screenshot](${{env.links[25]}}) |
+            | ![iMac Pro Retina 5K 27" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[24]}}) | ![iMac Retina 4K 21.5" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[25]}}) |
             </details>
 
             [Full ZIP](${{ steps.upload-files-artifacts.outputs.artifact-url }})
