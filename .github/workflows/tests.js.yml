@@ -18,12 +18,12 @@ jobs:
       fail-fast: false
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [ latest, 23.x, 22.x, 20.x ]
+        node-version: [ latest, 23.x, 22.x, 21, 20.x ]
 
     steps:
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_extended_${{ env.HUGO_VERSION }}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass Embedded
         run: sudo snap install dart-sass-embedded
@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_extended_${{ env.HUGO_VERSION }}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass Embedded
         run: sudo snap install dart-sass-embedded
@@ -63,10 +63,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Setup Node.js ${NODE_VERSION}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${NODE_VERSION}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
@@ -110,13 +110,15 @@ jobs:
             mobile.report.json
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.2.5
+        uses: McCzarny/upload-image@v1.3.0
         with:
           path: |
             mobile.jpg
             desktop.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
+          # Images will be automatically deleted after 30 days
+          expiration: 86400
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
         with:
@@ -125,7 +127,7 @@ jobs:
             ### Lighthouse Report
             |  Mobile  |  Desktop |
             |----|----|
-            | ![Lighthouse Mobile Report Score](${{steps.upload-files-imgbb.outputs.url[0]}}) | ![Lighthouse Desktop Report Score](${{steps.upload-files-imgbb.outputs.url[1]}}) |
+            | ![Lighthouse Mobile Report Score](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[0]}}) | ![Lighthouse Desktop Report Score](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[1]}}) |
 
             [Download report ZIP](${{ steps.lighthouseUploadReport.outputs.artifact-url }})
 
@@ -145,7 +147,7 @@ jobs:
     steps:
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_extended_${{ env.HUGO_VERSION }}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass Embedded
         run: sudo snap install dart-sass-embedded
@@ -153,10 +155,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Setup Node.js ${NODE_VERSION}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${NODE_VERSION}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
@@ -182,7 +184,7 @@ jobs:
             ./*.jpg
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.2.5
+        uses: McCzarny/upload-image@v1.3.0
         with:
           # Device viewport sizes https://blisk.io/devices
           path: |
@@ -214,72 +216,90 @@ jobs:
             2048x1152.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
+          # Images will be automatically deleted after 30 days
+          expiration: 86400
       - name: Publish the images
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             #### Screenshots
+            
             <details>
             <summary>Smartphones</summary>
+            
             #### iPhone 5 (320x568)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 5 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[0]}}) | ![iPhone 5 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[1]}}) |
+            | ![iPhone 5 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[0]}}) | ![iPhone 5 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[1]}}) |
 
             #### Honor 20 Pro (360x780)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![Honor 20 Pro portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[2]}}) | ![Honor 20 Pro portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[3]}}) |
+            | ![Honor 20 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[2]}}) | ![Honor 20 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[3]}}) |
 
             #### iPhone X (375x812)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone X portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[4]}}) | ![iPhone X portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[5]}}) |
+            | ![iPhone X portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[4]}}) | ![iPhone X portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[5]}}) |
 
             #### iPhone 12/13 Pro (390x844)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 12 Pro portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[6]}}) | ![iPhone 12 Pro portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[7]}}) |
+            | ![iPhone 12 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[6]}}) | ![iPhone 12 Pro portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[7]}}) |
 
             #### iPhone 14/15 Pro Max (430x932)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPhone 14 Pro Max portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[8]}}) | ![iPhone 14 Pro Max portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[9]}}) |
+            | ![iPhone 14 Pro Max portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[8]}}) | ![iPhone 14 Pro Max portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[9]}}) |
+            
             </details>
 
             <details>
             <summary>Tablets</summary>
+            
             #### iPad Mini 4 / Pro 9 (768x1024)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Mini portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[10]}}) | ![iPad Mini portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[11]}}) |
+            | ![iPad Mini portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[10]}}) | ![iPad Mini portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[11]}}) |
 
             #### iPad 10 (810x1080)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[12]}}) | ![iPad 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[13]}}) |
+            | ![iPad 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[12]}}) | ![iPad 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[13]}}) |
 
             #### iPad Pro 10 (834x1112)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Pro 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[14]}}) | ![iPad Pro 10 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[15]}}) |
+            | ![iPad Pro 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[14]}}) | ![iPad Pro 10 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[15]}}) |
 
             #### iPad Pro 12 (1024x1366)
+            
             |  Portrait Mode  |  Landscape Mode |
             |----|----|
-            | ![iPad Pro 12 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[16]}}) | ![iPad Pro 12 portrait mode screenshot](${{steps.upload-files-imgbb.outputs.url[17]}}) |
+            | ![iPad Pro 12 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[16]}}) | ![iPad Pro 12 portrait mode screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[17]}}) |
+            
             </details>
 
             <details>
             <summary>Notebooks</summary>
+            
             |  MacBook Air 13.3"/15.4" (1440x900) |  MacBook 12" (2304x1440) |
             |----|----|
-            | ![MacBook Air 13.3" screenshot](${{steps.upload-files-imgbb.outputs.url[18]}}) | ![MacBook 12" screenshot](${{steps.upload-files-imgbb.outputs.url[19]}}) |
+            | ![MacBook Air 13.3" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[18]}}) | ![MacBook 12" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[19]}}) |
 
             |  Laptop-S 1280x800 |  Laptop-M 1366x768 |
             |----|----|
-            | ![Laptop-S 1280x800 screenshot](${{steps.upload-files-imgbb.outputs.url[20]}}) | ![Laptop-M 1366x768 screenshot](${{steps.upload-files-imgbb.outputs.url[21]}}) |
+            | ![Laptop-S 1280x800 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[20]}}) | ![Laptop-M 1366x768 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[21]}}) |
+            
             </details>
 
             <details>
@@ -287,11 +307,12 @@ jobs:
 
             |  2560x1440 |  1920x1080 |
             |----|----|
-            | ![2560x1440 screenshot](${{steps.upload-files-imgbb.outputs.url[22]}}) | ![1920x1080 screenshot](${{steps.upload-files-imgbb.outputs.url[23]}}) |
+            | ![2560x1440 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[22]}}) | ![1920x1080 screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[23]}}) |
 
             |  iMac Pro Retina 5K 27" (3200x1800) |  iMac Retina 4K 21.5" (2048x1152) |
             |----|----|
-            | ![iMac Pro Retina 5K 27" screenshot](${{steps.upload-files-imgbb.outputs.url[24]}}) | ![iMac Retina 4K 21.5" screenshot](${{steps.upload-files-imgbb.outputs.url[25]}}) |
+            | ![iMac Pro Retina 5K 27" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[24]}}) | ![iMac Retina 4K 21.5" screenshot](${{(fromJson(steps.upload-files-imgbb.outputs.urls))[25]}}) |
+            
             </details>
 
             [Full ZIP](${{ steps.upload-files-artifacts.outputs.artifact-url }})

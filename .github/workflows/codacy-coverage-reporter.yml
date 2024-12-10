@@ -6,6 +6,7 @@ on:
     branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
+  # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 # Default to bash
