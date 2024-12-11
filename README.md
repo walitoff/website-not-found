@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/823936c92937484e91f3576cb410fd1e)](https://app.codacy.com/gh/walitoff/website-not-found/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
 [![CodeQL](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql)
 [![Codacy Security Scan](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml)
-[![Node.js CI](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/node.js.yml)
+[![Tests](https://github.com/walitoff/website-not-found/actions/workflows/tests.js.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/tests.js.yml)
 [![Deploy Hugo site to Pages](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml)
 ![GitHub](https://img.shields.io/github/license/walitoff/website-not-found?color=blue)
 
