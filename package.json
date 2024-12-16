@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.16.0",
+    "@eslint/js": "^9.17.0",
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@prantlf/jsonlint": "^16.0.0",
     "@types/jest": "^29.5.1",
