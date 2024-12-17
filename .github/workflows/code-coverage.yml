@@ -7,17 +7,21 @@ defaults:
   run:
     shell: bash
 
+env:
+  NODE_VERSION: 23.x
+
 jobs:
   base_branch_cov:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.base_ref }}
-      - name: Use Node.js 23.x
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 23.x
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm ci
@@ -39,13 +43,14 @@ jobs:
 
   checks:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs: base_branch_cov
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 23.x
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 23.x
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Download code coverage report from base branch
         uses: actions/download-artifact@v4
