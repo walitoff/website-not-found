@@ -13,6 +13,7 @@ env:
 jobs:
   base_branch_cov:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,6 +43,7 @@ jobs:
 
   checks:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs: base_branch_cov
     steps:
       - uses: actions/checkout@v4
