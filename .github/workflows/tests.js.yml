@@ -12,7 +12,6 @@ env:
 
 jobs:
   Build:
-    name: Tests
     runs-on: ${{ vars.UBUNTU_VERSION }}
 
     strategy:
@@ -20,6 +19,8 @@ jobs:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version: [ latest, 23.x, 22.x, 21, 20.x ]
+
+    name: Tests (Node.js ${{ matrix.node-version }})
 
     steps:
       - name: Install Hugo CLI
