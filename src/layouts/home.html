@@ -68,7 +68,7 @@
                              {{with $.Site.Params.ImageStyles}}
                              style="{{. | safeCSS}}"
                              {{end}}
-                             alt="Intro image">
+                             alt="Intro">
                     {{else if $.Site.Params.Icon}}
                     <span uk-icon="icon: {{$.Site.Params.Icon}};{{if $.Site.Params.IconSize}}ratio:{{$.Site.Params.IconSize}}{{end}}"
                           {{with $.Site.Params.IconClass}}

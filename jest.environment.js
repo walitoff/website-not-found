@@ -20,5 +20,3 @@ global.getLanguageCodes = function (list) {
     }
     return results;
 }
-
-//document.dispatchEvent(new Event('uikit:init'));
