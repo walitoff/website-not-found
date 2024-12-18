@@ -93,6 +93,8 @@ jobs:
         run: hugo server &
         # Wait till the server warms up
       - run: sleep 15
+      - name: Disable AppArmor for Chrome
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
       - name: Run Lighthouse Desktop
         run: npm run lighthouse-desktop
       - name: Run Lighthouse Mobile
@@ -177,6 +179,8 @@ jobs:
         run: |
           hugo \
             --minify
+      - name: Disable AppArmor for Chrome
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
       - name: Make screenshots
         run: npm run screenshot
       - name: Upload files as artifacts
