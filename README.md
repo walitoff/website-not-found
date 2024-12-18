@@ -2,10 +2,20 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cca1e0cef28a470cbbc1d3c0c877ca89)](https://app.codacy.com/gh/walitoff/website-not-found?utm_source=github.com\&utm_medium=referral\&utm_content=walitoff/website-not-found\&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/823936c92937484e91f3576cb410fd1e)](https://app.codacy.com/gh/walitoff/website-not-found/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=bugs)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
 [![CodeQL](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/github-code-scanning/codeql)
 [![Codacy Security Scan](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/walitoff/website-not-found/actions/workflows/codacy.yml)
 [![Tests](https://github.com/walitoff/website-not-found/actions/workflows/tests.js.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/tests.js.yml)
 [![Deploy Hugo site to Pages](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml/badge.svg)](https://github.com/walitoff/website-not-found/actions/workflows/hugo.yml)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=walitoff_website-not-found&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=walitoff_website-not-found)
 ![GitHub](https://img.shields.io/github/license/walitoff/website-not-found?color=blue)
 
 If you offer a hosting service, then you need to have some page that
