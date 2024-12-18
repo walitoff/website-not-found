@@ -20,6 +20,7 @@ env:
 jobs:
   # Build job
   build:
+    name: Codacy Coverage Reporter
     runs-on: ${{ vars.UBUNTU_VERSION }}
     steps:
       - name: Checkout

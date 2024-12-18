@@ -12,6 +12,7 @@ env:
 
 jobs:
   Build:
+    name: Tests
     runs-on: ${{ vars.UBUNTU_VERSION }}
 
     strategy:
@@ -42,6 +43,7 @@ jobs:
 
   # Make a Lighthouse Report
   Lighthouse:
+    name: Lighthouse Report
     needs: Build
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ${{ vars.UBUNTU_VERSION }}
@@ -135,6 +137,7 @@ jobs:
 
   # Make screenshots of the resulting page
   Screenshots:
+    name: Screenshots
     needs: Build
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ${{ vars.UBUNTU_VERSION }}
