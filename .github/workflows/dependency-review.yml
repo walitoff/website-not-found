@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   dependency-review:
+    name: Dependency Review
     runs-on: ${{ vars.UBUNTU_VERSION }}
     steps:
       - name: 'Checkout Repository'

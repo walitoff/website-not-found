@@ -20,6 +20,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version: [ latest, 23.x, 22.x, 21, 20.x ]
 
+    name: Node.js ${{ matrix.node-version }}
+
     steps:
       - name: Install Hugo CLI
         run: |
@@ -42,6 +44,7 @@ jobs:
 
   # Make a Lighthouse Report
   Lighthouse:
+    name: Lighthouse Report
     needs: Build
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ${{ vars.UBUNTU_VERSION }}
@@ -91,6 +94,8 @@ jobs:
         run: hugo server &
         # Wait till the server warms up
       - run: sleep 15
+      - name: Disable AppArmor for Chrome
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
       - name: Run Lighthouse Desktop
         run: npm run lighthouse-desktop
       - name: Run Lighthouse Mobile
@@ -118,8 +123,8 @@ jobs:
             desktop.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
-          # Images will be automatically deleted after 30 days
-          expiration: 86400
+          # Images will be automatically deleted after 7 days
+          expiration: 604800
       - name: Publish info
         uses: peter-evans/create-or-update-comment@v4
         with:
@@ -135,6 +140,7 @@ jobs:
 
   # Make screenshots of the resulting page
   Screenshots:
+    name: Screenshots
     needs: Build
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ${{ vars.UBUNTU_VERSION }}
@@ -174,6 +180,8 @@ jobs:
         run: |
           hugo \
             --minify
+      - name: Disable AppArmor for Chrome
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
       - name: Make screenshots
         run: npm run screenshot
       - name: Upload files as artifacts
@@ -218,8 +226,8 @@ jobs:
             2048x1152.jpg
           uploadMethod: imgbb
           apiKey: '${{ secrets.IMGBB_API_KEY }}'
-          # Images will be automatically deleted after 30 days
-          expiration: 86400
+          # Images will be automatically deleted after 7 days
+          expiration: 604800
       - name: Publish the images
         uses: peter-evans/create-or-update-comment@v4
         with:
