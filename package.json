@@ -1,38 +1,35 @@
 {
   "name": "website-not-found-page-generator",
-  "title": "404 Page for Missing Website (Domain)",
-  "description": "Generates a \"not found domain\" compact responsive page for hosting providers when a domain or website is suspended, deleted or unavailable.",
   "version": "1.0.0",
+  "description": "Generates a \"not found domain\" compact responsive page for hosting providers when a domain or website is suspended, deleted or unavailable.",
+  "homepage": "https://github.com/walitoff/website-not-found",
+  "bugs": {
+    "url": "https://github.com/walitoff/website-not-found/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/walitoff/website-not-found.git"
   },
-  "author": "Ramil Valitov (https://github.com/rvalitov)",
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/walitoff/website-not-found/issues"
-  },
-  "homepage": "https://github.com/walitoff/website-not-found",
-  "engines": {
-    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
+  "author": "Ramil Valitov (https://github.com/rvalitov)",
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "json": "jsonlint -q ./*.json",
-    "package": "npx npm-package-json-lint .",
     "build": "npx cpy ./node_modules/uikit/dist/css/uikit.min.css ./src/assets --flat && npx cpy ./node_modules/uikit/dist/js/uikit.min.js ./src/assets --flat && cd ./src && hugo --minify --environment production",
-    "start-server": "cd ./src && hugo server --environment production",
+    "coverage": "jest --coverage",
+    "jest": "jest",
+    "json": "jsonlint -q ./*.json",
     "lighthouse-desktop": "npx lighthouse http://localhost:1313/ --no-enable-error-reporting --output-path=./desktop --output=html --output=json --config-path=./lr-desktop-config.js --chrome-flags=\"--no-sandbox --headless --disable-gpu --disable-dev-shm-usage\"",
     "lighthouse-mobile": "npx lighthouse http://localhost:1313/ --no-enable-error-reporting --output-path=./mobile --output=html --output=json --config-path=./lr-mobile-config.js --chrome-flags=\"--no-sandbox --headless --disable-gpu --disable-dev-shm-usage\"",
-    "markdownlint": "markdownlint --config .markdownlint.json \"src/**/*.md\" \"*.md\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "markdown": "remark . --frail",
     "markdown:fix": "remark . --frail --output",
-    "jest": "jest",
-    "coverage": "jest --coverage",
+    "markdownlint": "markdownlint --config .markdownlint.json \"src/**/*.md\" \"*.md\"",
+    "package": "npx npm-package-json-lint .",
     "screenshot": "pageres ./src/public/index.html 320x568 568x320 360x780 780x360 375x812 812x375 390x844 844x390 430x932 932x430 768x1024 1024x768 810x1080 1080x810 834x1112 1112x834 1024x1366 1366x1024 1440x900 2304x1440 1280x800 1366x768 2560x1440 1920x1080 3200x1800 2048x1152 --overwrite --format=jpg --crop --filename=\"<%= size %>\"",
-    "screenshot:mobile": "pageres ./mobile.report.html 800x1000 --overwrite --format=jpg --crop --filename=\"mobile\"",
     "screenshot:desktop": "pageres ./desktop.report.html 800x1000 --overwrite --format=jpg --crop --filename=\"desktop\"",
+    "screenshot:mobile": "pageres ./mobile.report.html 800x1000 --overwrite --format=jpg --crop --filename=\"mobile\"",
+    "sort": "sort-package-json ./package.json",
+    "start-server": "cd ./src && hugo server --environment production",
     "stylelint": "stylelint -f verbose \"src/**/*.css\"",
     "stylelint:fix": "stylelint \"src/**/*.css\" --fix",
     "test": "npm run lint && npm run stylelint && npm run markdown && npm run markdownlint && npm run package && npm run json && npm run jest"
@@ -70,8 +67,13 @@
     "remark-lint-list-item-indent": "^4.0.0",
     "remark-preset-lint-consistent": "^6.0.0",
     "remark-preset-lint-recommended": "^7.0.0",
+    "sort-package-json": "^2.12.0",
     "stylelint": "^16.12.0",
     "stylelint-config-standard": "^36.0.1",
     "uikit": "3.21.16"
-  }
+  },
+  "engines": {
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+  },
+  "title": "404 Page for Missing Website (Domain)"
 }
