@@ -34,6 +34,7 @@ env:
 jobs:
   # Build job
   build:
+    name: Build
     runs-on: ${{ vars.UBUNTU_VERSION }}
 
     steps:
@@ -75,6 +76,7 @@ jobs:
 
   # Deployment job
   deploy:
+    name: Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
