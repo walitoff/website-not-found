@@ -34,7 +34,7 @@ jobs:
         with:
           submodules: recursive
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4.1.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -106,7 +106,7 @@ jobs:
         run: npm run screenshot:desktop
       - name: Upload Lighthouse Report
         id: lighthouseUploadReport
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v4
         with:
           name: Lighthouse-report
           path: |
@@ -116,7 +116,7 @@ jobs:
             mobile.report.json
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.3.0
+        uses: McCzarny/upload-image@v1.4.0
         with:
           path: |
             mobile.jpg
@@ -186,7 +186,7 @@ jobs:
         run: npm run screenshot
       - name: Upload files as artifacts
         id: upload-files-artifacts
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v4
         with:
           name: Screenshots
           path: |
@@ -194,7 +194,7 @@ jobs:
             ./*.jpg
       - name: Upload files to Imgbb
         id: upload-files-imgbb
-        uses: McCzarny/upload-image@v1.3.0
+        uses: McCzarny/upload-image@v1.4.0
         with:
           # Device viewport sizes https://blisk.io/devices
           path: |
