@@ -5,6 +5,11 @@ on:
     branches: ["master", "main"]
     types: [opened, synchronize, reopened]
 
+# Define permissions at the workflow level
+permissions:
+  pull-requests: write  # Needed to merge PRs and comment
+  contents: write       # Needed to update the repository (e.g., merge commits)
+
 jobs:
   dependabot:
     runs-on: ubuntu-latest
