@@ -4,7 +4,7 @@ name: Tests
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["master", "main"]
 
 env:
   HUGO_VERSION: 0.139.3
