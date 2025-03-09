@@ -41,7 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
+    "@eslint/js": "^9.22.0",
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@prantlf/jsonlint": "^16.0.0",
     "@types/jest": "^29.5.1",
@@ -70,7 +70,7 @@
     "sort-package-json": "^2.15.1",
     "stylelint": "^16.15.0",
     "stylelint-config-standard": "^37.0.0",
-    "uikit": "3.23.1"
+    "uikit": "3.23.2"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
