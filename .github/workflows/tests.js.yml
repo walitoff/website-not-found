@@ -126,7 +126,7 @@ jobs:
           # Images will be automatically deleted after 7 days
           expiration: 604800
       - name: Publish info
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
@@ -209,7 +209,7 @@ jobs:
           # Images will be automatically deleted after 7 days
           expiration: 604800
       - name: Publish the images
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
